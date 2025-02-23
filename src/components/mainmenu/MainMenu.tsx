@@ -52,7 +52,7 @@ export const MainMenu: FC<MainMenuProps> = ({ tabs }) => {
                 tabs.current?.close();
             },
             artistAlley: () => {
-                navigation.navigate("ArtistAlleyReg", {});
+                navigation.navigate("ArtistAlleyList", {});
                 tabs.current?.close();
             },
             settings: () => {

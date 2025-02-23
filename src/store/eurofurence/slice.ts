@@ -12,6 +12,7 @@ import {
     KnowledgeEntryRecord,
     KnowledgeGroupRecord,
     MapRecord,
+    ArtistAlleyDetails,
 } from "./types";
 
 export type EntitySyncState<T = unknown> = {
@@ -37,6 +38,7 @@ export type SyncResponse = {
     Dealers: EntitySyncState<DealerRecord>;
     Announcements: EntitySyncState<AnnouncementRecord>;
     Maps: EntitySyncState<MapRecord>;
+    ArtistAlley: EntitySyncState<ArtistAlleyDetails>;
 };
 
 export const eventsAdapter = createEntityAdapter<EventRecord>({
@@ -82,6 +84,15 @@ export const dealersAdapter = createEntityAdapter<DealerRecord>({
     },
 });
 
+export const artistAlleyAdapter = createEntityAdapter<ArtistAlleyDetails>({
+    selectId: (model) => model.Id,
+    sortComparer: (a, b) => {
+        const aFullName = a.DisplayNameOrAttendeeNickname.toLowerCase();
+        const bFullName = b.DisplayNameOrAttendeeNickname.toLowerCase();
+        return aFullName.localeCompare(bFullName);
+    },
+});
+
 export const announcementsAdapter = createEntityAdapter<AnnouncementRecord>({
     selectId: (model) => model.Id,
     sortComparer: (a, b) => -a.ValidFromDateTimeUtc.localeCompare(b.ValidFromDateTimeUtc),
@@ -105,6 +116,7 @@ type EurofurenceCacheState = {
     knowledgeEntries: EntityState<KnowledgeEntryRecord>;
     images: EntityState<ImageRecord>;
     dealers: EntityState<DealerRecord>;
+    artistAlley: EntityState<ArtistAlleyDetails>;
     announcements: EntityState<AnnouncementRecord>;
     maps: EntityState<MapRecord>;
 };
@@ -120,6 +132,7 @@ const initialState: EurofurenceCacheState = {
     knowledgeEntries: knowledgeEntriesAdapter.getInitialState(),
     maps: mapsAdapter.getInitialState(),
     dealers: dealersAdapter.getInitialState(),
+    artistAlley: artistAlleyAdapter.getInitialState(),
     announcements: announcementsAdapter.getInitialState(),
     images: imagesAdapter.getInitialState(),
 };
@@ -172,6 +185,7 @@ export const eurofurenceCache = createSlice({
                 imagesAdapter.removeAll(state.images);
                 announcementsAdapter.removeAll(state.announcements);
                 mapsAdapter.removeAll(state.maps);
+                artistAlleyAdapter.removeAll(state.artistAlley);
             }
             // Fix locally for now. TODO: Remove when API is fixed.
             internalPatchDealers(action.payload.Dealers);
@@ -189,6 +203,7 @@ export const eurofurenceCache = createSlice({
             syncEntities(state.images, imagesAdapter, action.payload.Images);
             syncEntities(state.announcements, announcementsAdapter, action.payload.Announcements);
             syncEntities(state.maps, mapsAdapter, action.payload.Maps);
+            syncEntities(state.artistAlley, artistAlleyAdapter, action.payload.ArtistAlley);
         },
         resetCache: () => {
             return initialState;
@@ -205,6 +220,7 @@ export const eurofurenceCache = createSlice({
             amendEntities(state.images, imagesAdapter, update);
             amendEntities(state.announcements, announcementsAdapter, update);
             amendEntities(state.maps, mapsAdapter, update);
+            amendEntities(state.artistAlley, artistAlleyAdapter, update);
         },
     },
 });

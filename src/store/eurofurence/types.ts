@@ -124,6 +124,44 @@ export type DealerDetails = DealerRecord & {
     MastodonUrl?: string;
 };
 
+export type ArtistAlleyRecord = RecordMetadata & {
+    ArtistImageId?: RecordId;
+    ArtistThumbnailImageId?: RecordId;
+    ArtPreviewImageId?: RecordId;
+
+    DisplayNameOrAttendeeNickname: string;
+    DisplayName: string;
+    Merchandise: string;
+    ShortDescription?: string;
+    AboutTheArtistText?: string;
+    AboutTheArtText?: string;
+    TwitterHandle?: string;
+    TelegramHandle?: string;
+    DiscordHandle?: string;
+    MastodonHandle?: string;
+    BlueskyHandle?: string;
+    Links: LinkFragment[] | null;
+    AttendsOnThursday?: boolean;
+    AttendsOnFriday?: boolean;
+    AttendsOnSaturday?: boolean;
+    ArtPreviewCaption?: string;
+    IsAfterDark?: boolean;
+    Categories?: string[];
+    Keywords?: { [category: string]: string[] };
+};
+
+export type ArtistAlleyDetails = ArtistAlleyRecord & {
+    AttendanceDays: EventDayDetails[];
+    AttendanceDayNames: string[];
+    Artist?: ImageDetails;
+    ArtistThumbnail?: ImageDetails;
+    ArtPreview?: ImageDetails;
+    ShortDescriptionContent?: string;
+    ShortDescriptionTable?: string;
+    Favorite: boolean;
+    MastodonUrl?: string;
+};
+
 export type EventDayRecord = RecordMetadata & {
     Name: string;
     Date: string;

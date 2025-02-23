@@ -7,7 +7,7 @@ import _ from "lodash";
 import { apiBase } from "../../configuration";
 import { getAccessToken } from "../../context/AuthContext";
 import { httpStatusTexts } from "../../util/httpStatusTexts";
-import { ArtistAlleyOwnTableRegistrationRecord, CommunicationRecord, RecordId, RecordMetadata } from "./types";
+import { ArtistAlleyOwnTableRegistrationRecord, CommunicationRecord, RecordId, RecordMetadata, ArtistAlleyDetails } from "./types";
 
 const tagsFromList =
     <TagType extends string>(type: TagType) =>
@@ -24,7 +24,7 @@ export const eurofurenceService = createApi({
             return headers;
         },
     }),
-    tagTypes: ["Communication", "ArtistAlleyOwnTableRegistration"],
+    tagTypes: ["Communication", "ArtistAlleyOwnTableRegistration", "ArtistAlleyDetails"],
     endpoints: (builder) => ({
         getCommunications: builder.query<CommunicationRecord[], void>({
             query: () => "/Communication/PrivateMessages",
@@ -169,6 +169,12 @@ export const eurofurenceService = createApi({
             },
             invalidatesTags: ["ArtistAlleyOwnTableRegistration"],
         }),
+
+        getArtistAlleyDetails: builder.query<ArtistAlleyDetails[], void>({
+            query: () => "/ArtistsAlley/Details",
+            providesTags: tagsFromList("ArtistAlleyDetails"),
+            transformResponse: (result: ArtistAlleyDetails[]) => _.orderBy(result, (it) => it.DisplayNameOrAttendeeNickname, "asc"),
+        }),
     }),
 });
 
@@ -178,4 +184,5 @@ export const {
     useSubmitEventFeedbackMutation,
     useArtistAlleyOwnTableRegistrationQuery,
     useArtistAlleyPostTableRegistrationRequestMutation,
+    useGetArtistAlleyDetailsQuery,
 } = eurofurenceService;

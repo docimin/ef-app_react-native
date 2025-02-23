@@ -68,6 +68,21 @@ export const auxiliary = createSlice({
             if (index >= 0) state.favoriteDealers.splice(index, 1);
             else state.favoriteDealers.push(action.payload);
         },
+        favoriteArtist(state, action: PayloadAction<RecordId>) {
+            state.favoriteDealers ??= [];
+            state.favoriteDealers.push(action.payload);
+        },
+        unfavoriteArtist(state, action: PayloadAction<RecordId>) {
+            state.favoriteDealers ??= [];
+            const index = state.favoriteDealers.indexOf(action.payload);
+            if (index >= 0) state.favoriteDealers.splice(index, 1);
+        },
+        toggleArtistFavorite(state, action: PayloadAction<RecordId>) {
+            state.favoriteDealers ??= [];
+            const index = state.favoriteDealers.indexOf(action.payload);
+            if (index >= 0) state.favoriteDealers.splice(index, 1);
+            else state.favoriteDealers.push(action.payload);
+        },
         hideDeviceWarnings(state) {
             state.deviceWarningsHidden = true;
         },
@@ -107,6 +122,9 @@ export const {
     favoriteDealer,
     unfavoriteDealer,
     toggleDealerFavorite,
+    favoriteArtist,
+    unfavoriteArtist,
+    toggleArtistFavorite,
     hideDeviceWarnings,
     showDeviceWarnings,
     toggleShowDeviceWarnings,

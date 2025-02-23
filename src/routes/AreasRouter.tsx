@@ -15,6 +15,7 @@ import { Home, HomeParams } from "./home/Home";
 import { EventsRouter, EventsRouterParams } from "./events/EventsRouter";
 import { DealersRouter, DealersRouterParams } from "./dealers/DealersRouter";
 import { IndexRouterParamsList } from "./IndexRouter";
+import { ArtistAlleyRouterParams } from "./artistalley/ArtistAlleyRouter";
 
 /**
  * Minimum padding to use if safe area is less.
@@ -39,6 +40,11 @@ export type AreasRouterParamsList = {
      * Dealers list.
      */
     Dealers: DealersRouterParams;
+
+    /**
+     * Artist alley list.
+     */
+    ArtistAlley: ArtistAlleyRouterParams;
 };
 
 /**

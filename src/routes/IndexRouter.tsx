@@ -16,6 +16,7 @@ import { Viewer, ViewerParams } from "./Viewer";
 import { AnnounceItem, AnnounceItemParams } from "./announce/AnnounceItem";
 import { AnnounceList, AnnounceListParams } from "./announce/AnnounceList";
 import { ArtistAlleyReg, ArtistAlleyRegParams } from "./artistalley/ArtistAlleyReg";
+import { ArtistAlleyList, ArtistAlleyListParams } from "./artistalley/ArtistAlleyList";
 import { DealerItem, DealerItemParams } from "./dealers/DealerItem";
 import { EventFeedback } from "./events/EventFeedback";
 import { EventItem, EventItemParams } from "./events/EventItem";
@@ -36,6 +37,7 @@ export type IndexRouterParamsList = {
      */
     Areas: AreasRouterParams;
     ArtistAlleyReg: ArtistAlleyRegParams;
+    ArtistAlleyList: ArtistAlleyListParams;
     AnnounceList: AnnounceListParams;
     AnnounceItem: AnnounceItemParams;
     Event: EventItemParams;
@@ -88,6 +90,7 @@ export const IndexRouter: FC<IndexRouterProps> = () => {
             <Stack.Navigator screenOptions={{ headerShown: false, detachPreviousScreen: false }}>
                 <Stack.Screen name="Areas" component={AreasRouter} />
                 <Stack.Screen name="ArtistAlleyReg" component={ArtistAlleyReg} />
+                <Stack.Screen name="ArtistAlleyList" component={ArtistAlleyList} />
                 <Stack.Screen name="AnnounceList" component={AnnounceList} />
                 <Stack.Screen name="AnnounceItem" component={AnnounceItem} />
                 <Stack.Screen name="Event" component={EventItem} />
