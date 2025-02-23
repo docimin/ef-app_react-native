@@ -10,9 +10,11 @@ export type ArtistAlleyUnauthorizedProps = {
     loggedIn: boolean;
     attending: boolean;
     checkedIn: boolean;
+    registrationAccepted: boolean;
+    onCheckout: () => void;
 };
 
-export const ArtistAlleyUnauthorized = ({ loggedIn, attending, checkedIn }: ArtistAlleyUnauthorizedProps) => {
+export const ArtistAlleyUnauthorized = ({ loggedIn, attending, checkedIn, registrationAccepted, onCheckout }: ArtistAlleyUnauthorizedProps) => {
     // Get translation function.
     const { t } = useTranslation("ArtistAlley");
     const { login } = useAuthContext();
@@ -33,6 +35,11 @@ export const ArtistAlleyUnauthorized = ({ loggedIn, attending, checkedIn }: Arti
             {loggedIn ? null : (
                 <Button style={styles.button} iconRight="login" onPress={() => login().catch(captureException)}>
                     {t("log_in_now")}
+                </Button>
+            )}
+            {registrationAccepted && (
+                <Button style={styles.button} onPress={onCheckout}>
+                    {t("checkout")}
                 </Button>
             )}
         </View>

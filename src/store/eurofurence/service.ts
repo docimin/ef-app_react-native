@@ -169,6 +169,18 @@ export const eurofurenceService = createApi({
             },
             invalidatesTags: ["ArtistAlleyOwnTableRegistration"],
         }),
+        artistAlleyCheckout: builder.mutation<boolean, void>({
+            query: () => ({
+                url: "/ArtistsAlley/TableRegistration/:my-latest/Checkout",
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/json",
+                },
+                body: "true",
+                responseHandler: async (response: Response) => response.ok,
+            }),
+            invalidatesTags: ["ArtistAlleyOwnTableRegistration"],
+        }),
     }),
 });
 
@@ -178,4 +190,5 @@ export const {
     useSubmitEventFeedbackMutation,
     useArtistAlleyOwnTableRegistrationQuery,
     useArtistAlleyPostTableRegistrationRequestMutation,
+    useArtistAlleyCheckoutMutation,
 } = eurofurenceService;

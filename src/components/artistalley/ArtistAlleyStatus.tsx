@@ -12,9 +12,10 @@ import { sourceFromImage } from "../generic/atoms/Image.common";
 export type ArtistAlleyStatusProps = {
     data: ArtistAlleyOwnTableRegistrationRecord;
     onEdit: () => void;
+    onCheckout: () => void;
 };
 
-export const ArtistAlleyStatus = ({ data, onEdit }: ArtistAlleyStatusProps) => {
+export const ArtistAlleyStatus = ({ data, onEdit, onCheckout }: ArtistAlleyStatusProps) => {
     // Get translation function.
     const { t } = useTranslation("ArtistAlley");
     const backgroundStyle = useThemeBackground("background");
@@ -57,6 +58,12 @@ export const ArtistAlleyStatus = ({ data, onEdit }: ArtistAlleyStatusProps) => {
             <Button style={styles.button} onPress={onEdit}>
                 {data.State === "Pending" ? t("edit_request") : t("new_request")}
             </Button>
+
+            {data.State === "Accepted" && (
+                <Button style={styles.button} onPress={onCheckout}>
+                    {t("checkout")}
+                </Button>
+            )}
         </View>
     );
 };

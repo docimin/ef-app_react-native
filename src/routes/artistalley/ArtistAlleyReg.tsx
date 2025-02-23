@@ -14,7 +14,7 @@ import { Floater, padFloater } from "../../components/generic/containers/Floater
 import { Header } from "../../components/generic/containers/Header";
 import { artistAlleyUrl } from "../../configuration";
 import { useAuthContext } from "../../context/AuthContext";
-import { useArtistAlleyOwnTableRegistrationQuery } from "../../store/eurofurence/service";
+import { useArtistAlleyOwnTableRegistrationQuery, useArtistAlleyCheckoutMutation } from "../../store/eurofurence/service";
 
 const stateToBackground = {
     Pending: "warning",
@@ -45,6 +45,9 @@ export const ArtistAlleyReg = () => {
     // Switch for show and edit modes.
     const [show, setShow] = useState(true);
 
+    // Checkout mutation
+    const [checkout] = useArtistAlleyCheckoutMutation();
+
     return (
         <ScrollView
             style={StyleSheet.absoluteFill}
@@ -67,7 +70,7 @@ export const ArtistAlleyReg = () => {
                 {authorized ? (
                     !isFetching ? (
                         show && data ? (
-                            <ArtistAlleyStatus data={data} onEdit={() => setShow(false)} />
+                            <ArtistAlleyStatus data={data} onEdit={() => setShow(false)} onCheckout={() => checkout()} />
                         ) : (
                             <ArtistAlleyEdit
                                 prefill={{
@@ -84,7 +87,13 @@ export const ArtistAlleyReg = () => {
                         )
                     ) : null
                 ) : (
-                    <ArtistAlleyUnauthorized loggedIn={loggedIn} attending={attending} checkedIn={checkedIn} />
+                    <ArtistAlleyUnauthorized
+                        loggedIn={loggedIn}
+                        attending={attending}
+                        checkedIn={checkedIn}
+                        registrationAccepted={data?.State === "Accepted"}
+                        onCheckout={() => checkout()}
+                    />
                 )}
             </Floater>
         </ScrollView>
