@@ -24,6 +24,9 @@ export const dehydrators: Dehydrators = {
   communications(item: StoreData['communications']): string {
     return stringifyEntityStore(item)
   },
+  artistAlley(item: StoreData['artistAlley']): string {
+    return stringifyEntityStore(item)
+  },
   dealers(item: StoreData['dealers']): string {
     return stringifyEntityStore(item)
   },

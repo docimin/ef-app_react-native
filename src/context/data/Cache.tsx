@@ -9,6 +9,7 @@ import { dehydrators } from '@/context/data/dehydrators'
 import { hydrators } from '@/context/data/hydrators'
 import {
   AnnouncementRecord,
+  ArtistAlleyRecord,
   CommunicationRecord,
   DealerRecord,
   EventDayRecord,
@@ -66,6 +67,7 @@ export type StoreValues = Readonly<{
  */
 export type StoreEntities = Readonly<{
   announcements: EntityStore<AnnouncementRecord>
+  artistAlley: EntityStore<ArtistAlleyRecord>
   dealers: EntityStore<DealerRecord>
   images: EntityStore<ImageRecord>
   events: EntityStore<EventRecord>
@@ -173,6 +175,7 @@ const initialState: StoreData = {
   notifications: [],
   announcements: emptyEntityStore,
   dealers: emptyEntityStore,
+  artistAlley: emptyEntityStore,
   images: emptyEntityStore,
   events: emptyEntityStore,
   eventDays: emptyEntityStore,
@@ -382,6 +385,7 @@ export const CacheProvider = ({ children }: CacheProps) => {
           ['notifications', dehydrators['notifications'](initialState['notifications'])],
           ['announcements', dehydrators['announcements'](initialState['announcements'])],
           ['dealers', dehydrators['dealers'](initialState['dealers'])],
+          ['artistAlley', dehydrators['artistAlley'](initialState['artistAlley'])],
           ['images', dehydrators['images'](initialState['images'])],
           ['events', dehydrators['events'](initialState['events'])],
           ['eventDays', dehydrators['eventDays'](initialState['eventDays'])],
@@ -415,6 +419,7 @@ export const CacheProvider = ({ children }: CacheProps) => {
   usePersistor(data, 'notifications')
   usePersistor(data, 'announcements')
   usePersistor(data, 'dealers')
+  usePersistor(data, 'artistAlley')
   usePersistor(data, 'images')
   usePersistor(data, 'events')
   usePersistor(data, 'eventDays')
@@ -516,6 +521,7 @@ export const CacheProvider = ({ children }: CacheProps) => {
       dispatchFromRemote('knowledgeGroups', data.KnowledgeGroups)
       dispatchFromRemote('knowledgeEntries', data.KnowledgeEntries)
       dispatchFromRemote('dealers', data.Dealers)
+      dispatchFromRemote('artistAlley', data.ArtistAlley)
       dispatchFromRemote('images', data.Images)
       dispatchFromRemote('announcements', data.Announcements)
       dispatchFromRemote('maps', data.Maps)

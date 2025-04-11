@@ -39,6 +39,9 @@ export const hydrators: Hydrators = {
   communications(text: string): StoreData['communications'] | undefined {
     return hydrateRecords(text)
   },
+  artistAlley(text: string): StoreData['artistAlley'] | undefined {
+    return hydrateRecords(text)
+  },
   dealers(text: string): StoreData['dealers'] | undefined {
     return hydrateRecords(text)
   },

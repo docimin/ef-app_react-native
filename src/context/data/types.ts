@@ -79,6 +79,30 @@ export type EventDetails = EventRecord & {
   Favorite: boolean
   Hidden: boolean
 }
+export type ArtistAlleyRecord = RecordMetadata & {
+  OwnerUid: string
+  OwnerUsername: string
+  DisplayName: string
+  WebsiteUrl: string
+  ShortDescription: string
+  TelegramHandle: string
+  Location: string
+  imageId: string
+  Image: ImageDetails
+  State: string
+}
+export type ArtistAlleyDetails = ArtistAlleyRecord & {
+  OwnerId: string
+  OwnerUsername: string
+  DisplayName: string
+  WebsiteUrl: string
+  ShortDescription: string
+  TelegramHandle: string
+  Location: string
+  imageId: string
+  Image: ImageDetails
+  State: string
+}
 export type DealerRecord = RecordMetadata & {
   ArtistImageId?: RecordId
   ArtistThumbnailImageId?: RecordId
