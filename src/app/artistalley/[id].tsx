@@ -5,13 +5,13 @@ import { useLocalSearchParams } from 'expo-router'
 import { useTranslation } from 'react-i18next'
 
 import { appStyles } from '@/components/AppStyles'
-import { DealerContent } from '@/components/dealers/DealerContent'
+import { ArtistAlleyContent } from '@/components/artistalley/ArtistAlleyContent'
 import { Floater, padFloater } from '@/components/generic/containers/Floater'
 import { Header } from '@/components/generic/containers/Header'
 import { useUpdateSinceNote } from '@/hooks/data/useUpdateSinceNote'
 import { useLatchTrue } from '@/hooks/util/useLatchTrue'
 import { platformShareIcon } from '@/components/generic/atoms/Icon'
-import { shareDealer } from '@/components/dealers/Dealers.common'
+import { shareArtist } from '@/components/artistalley/ArtistAlley.common'
 import { useCache } from '@/context/data/Cache'
 
 export default function ArtistAlleyItem() {
@@ -26,10 +26,10 @@ export default function ArtistAlleyItem() {
 
   return (
     <ScrollView style={StyleSheet.absoluteFill} stickyHeaderIndices={[0]} stickyHeaderHiddenOnScroll>
-      <Header secondaryIcon={platformShareIcon} secondaryPress={() => dealer && shareDealer(dealer)}>
-        {dealer?.DisplayNameOrAttendeeNickname ?? t('viewing_dealer')}
+      <Header secondaryIcon={platformShareIcon} secondaryPress={() => artist && shareArtist(artist)}>
+        {artist?.DisplayNameOrAttendeeNickname ?? t('viewing_artist')}
       </Header>
-      <Floater contentStyle={appStyles.trailer}>{!dealer ? null : <ArtistContent artist={artist} parentPad={padFloater} updated={showUpdated} />}</Floater>
+      <Floater contentStyle={appStyles.trailer}>{!artist ? null : <ArtistAlleyContent artist={artist} parentPad={padFloater} updated={showUpdated} />}</Floater>
     </ScrollView>
   )
 }
