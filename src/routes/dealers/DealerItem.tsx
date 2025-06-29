@@ -4,6 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 
 import { appStyles } from "../../components/AppStyles";
 import { DealerContent } from "../../components/dealers/DealerContent";
+import { Label } from "../../components/generic/atoms/Label";
 import { Floater, padFloater } from "../../components/generic/containers/Floater";
 import { Header } from "../../components/generic/containers/Header";
 import { useAppRoute } from "../../hooks/nav/useAppNavigation";
@@ -38,7 +39,15 @@ export const DealerItem = () => {
             <Header secondaryIcon={platformShareIcon} secondaryPress={() => dealer && shareDealer(dealer)}>
                 {dealer?.DisplayNameOrAttendeeNickname ?? t("viewing_dealer")}
             </Header>
-            <Floater contentStyle={appStyles.trailer}>{!dealer ? null : <DealerContent dealer={dealer} parentPad={padFloater} updated={showUpdated} />}</Floater>
+            <Floater contentStyle={appStyles.trailer}>
+                {!dealer ? (
+                    <Label type="h2" mt={30} mb={10}>
+                        {t("not_available", "This dealer is no longer available.")}
+                    </Label>
+                ) : (
+                    <DealerContent dealer={dealer} parentPad={padFloater} updated={showUpdated} />
+                )}
+            </Floater>
         </ScrollView>
     );
 };
