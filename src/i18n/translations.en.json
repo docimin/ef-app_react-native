@@ -122,6 +122,7 @@
     "label_event_track": "Track",
     "label_event_when": "When",
     "mask_required": "Face masks are mandatory for this event",
+    "not_available": "This event is no longer available.",
     "remove_favorite": "Unfavorite",
     "reveal": "Reveal in overview",
     "share": "Share this event",

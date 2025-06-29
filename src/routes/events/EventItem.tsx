@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import { useTranslation } from "react-i18next";
 
 import { appStyles } from "../../components/AppStyles";
 import { EventContent } from "../../components/events/EventContent";
+import { Label } from "../../components/generic/atoms/Label";
 import { Floater, padFloater } from "../../components/generic/containers/Floater";
 import { Header } from "../../components/generic/containers/Header";
 import { useAppRoute } from "../../hooks/nav/useAppNavigation";
@@ -24,6 +26,7 @@ export type EventItemParams = {
 };
 
 export const EventItem = () => {
+    const { t } = useTranslation("Event");
     const route = useAppRoute("Event");
     const event = useAppSelector((state) => eventsSelector.selectById(state, route.params.id));
 
@@ -36,7 +39,15 @@ export const EventItem = () => {
             <Header secondaryIcon={platformShareIcon} secondaryPress={() => event && shareEvent(event)}>
                 {event?.Title ?? "Viewing event"}
             </Header>
-            <Floater contentStyle={appStyles.trailer}>{!event ? null : <EventContent event={event} parentPad={padFloater} updated={showUpdated} />}</Floater>
+            <Floater contentStyle={appStyles.trailer}>
+                {!event ? (
+                    <Label type="h2" mt={30} mb={10}>
+                        {t("not_available", "This event is no longer available.")}
+                    </Label>
+                ) : (
+                    <EventContent event={event} parentPad={padFloater} updated={showUpdated} />
+                )}
+            </Floater>
         </ScrollView>
     );
 };
