@@ -29,7 +29,11 @@ export const AnnounceItem = () => {
         <ScrollView style={StyleSheet.absoluteFill} stickyHeaderIndices={[0]} stickyHeaderHiddenOnScroll>
             <Header>{t("header")}</Header>
             <Floater contentStyle={appStyles.trailer}>
-                {!announcement ? null : (
+                {!announcement ? (
+                    <Label type="h2" mt={30} mb={10}>
+                        {t("announcement_not_found", "This announcement is no longer available.")}
+                    </Label>
+                ) : (
                     <>
                         <Label type="h1" mt={30} mb={10}>
                             {announcement.NormalizedTitle}
