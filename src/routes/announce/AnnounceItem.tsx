@@ -31,7 +31,7 @@ export const AnnounceItem = () => {
             <Floater contentStyle={appStyles.trailer}>
                 {!announcement ? (
                     <Label type="h2" mt={30} mb={10}>
-                        {t("announcement_not_found", "This announcement is no longer available.")}
+                        {t("not_available", "This announcement is no longer available.")}
                     </Label>
                 ) : (
                     <>

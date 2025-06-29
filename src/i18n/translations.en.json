@@ -10,7 +10,8 @@
     "header": "About"
   },
   "Announcement": {
-    "header": "Announcement"
+    "header": "Announcement",
+    "not_available": "This announcement is no longer available."
   },
   "Announcements": {
     "header": "Announcements",

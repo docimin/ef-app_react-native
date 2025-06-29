@@ -50,8 +50,8 @@ describe("AnnounceItem", () => {
 
         const { getByText, queryByText } = render(<AnnounceItem />);
         
-        // Should show the "not found" message instead of rendering nothing
-        expect(getByText("announcement_not_found")).toBeTruthy();
+        // Should show the "not available" message instead of rendering nothing
+        expect(getByText("This announcement is no longer available.")).toBeTruthy();
         expect(queryByText("Test Announcement")).toBeNull();
     });
 
