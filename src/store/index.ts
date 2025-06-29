@@ -8,6 +8,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import { authorizationService } from "./auth/service";
 import { auxiliary } from "./auxiliary/slice";
 import { backgroundSlice } from "./background/slice";
+import calendarReducer from "./calendar/slice";
 import { eurofurenceService } from "./eurofurence/service";
 import { eurofurenceCache } from "./eurofurence/slice";
 import { settingsSlice } from "./settings/slice";
@@ -21,6 +22,7 @@ export const reducers = combineReducers({
     [authorizationService.reducerPath]: authorizationService.reducer,
     [settingsSlice.name]: settingsSlice.reducer,
     [auxiliary.name]: auxiliary.reducer,
+    calendar: calendarReducer,
 });
 
 const persistedReducer = persistReducer(
@@ -28,7 +30,7 @@ const persistedReducer = persistReducer(
         key: "root",
         version: 3,
         storage: AsyncStorage,
-        whitelist: [timeTravelSlice.name, backgroundSlice.name, eurofurenceCache.name, settingsSlice.name, auxiliary.name],
+        whitelist: [timeTravelSlice.name, backgroundSlice.name, eurofurenceCache.name, settingsSlice.name, auxiliary.name, "calendar"],
     },
     reducers,
 );

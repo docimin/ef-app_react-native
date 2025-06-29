@@ -7,6 +7,7 @@ import { StyleSheet, View } from "react-native";
 import { useCalendars } from "expo-localization";
 import { captureException } from "@sentry/react-native";
 import { useEventReminder } from "../../hooks/events/useEventReminder";
+import { useEventCalendar } from "../../hooks/events/useEventCalendar";
 import { useAppNavigation } from "../../hooks/nav/useAppNavigation";
 import { useNow } from "../../hooks/time/useNow";
 import { shareEvent } from "../../routes/events/Events.common";
@@ -61,6 +62,7 @@ export const EventContent: FC<EventContentProps> = ({ event, parentPad = 0, upda
 
     const { t } = useTranslation("Event");
     const { isFavorite, toggleReminder } = useEventReminder(event);
+    const { exportEventWithConfirmation, isExporting, isSupported, isAlreadyExported } = useEventCalendar(event);
     const dispatch = useAppDispatch();
     const isFocused = useIsFocused();
     const now = useNow(isFocused ? 5 : "static");
@@ -142,6 +144,26 @@ export const EventContent: FC<EventContentProps> = ({ event, parentPad = 0, upda
             {!shareButton ? null : (
                 <Button icon={platformShareIcon} onPress={() => shareEvent(event)}>
                     {t("share")}
+                </Button>
+            )}
+
+            {!shareButton || !isSupported ? null : (
+                <Button 
+                    icon={isAlreadyExported ? "calendar-check" : "calendar-plus"} 
+                    disabled={isExporting || isAlreadyExported}
+                    onPress={async () => {
+                        const result = await exportEventWithConfirmation(event);
+                        if (result.success) {
+                            // Handle success - could show a toast or update UI
+                        } else if (result.error && result.error !== "User cancelled") {
+                            // Handle error - could show an alert
+                            captureException(new Error(`Calendar export failed: ${result.error}`));
+                        }
+                    }}
+                >
+                    {isExporting ? t("exporting_to_calendar") : 
+                     isAlreadyExported ? t("exported_to_calendar") : 
+                     t("export_to_calendar")}
                 </Button>
             )}
 
